@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Nuru · Panel de control</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Nunito+Sans:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#f7ebdd;--paper:#fffdf9;--terra:#d9946a;--terra-d:#b8704a;--brown:#8a5a44;--ink:#4a3328;--sage:#8e9c78;--sage-d:#6b7a57;--line:#ead9c6;--red:#b3402f;--ok:#2a9d5c}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:hidden;max-width:100%}
+body{font-family:"Nunito Sans",system-ui,sans-serif;background:#fbf5ec;color:var(--ink);font-size:15px}
+button{font:inherit;cursor:pointer;border:0;color:inherit}
+input,select,textarea{font:inherit;color:var(--ink);width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:#fff}
+textarea{resize:vertical;min-height:70px}
+label{display:block;font-weight:800;font-size:.78rem;color:var(--brown);margin:10px 0 3px}
+.btn{background:var(--brown);color:#fff;border-radius:999px;padding:9px 16px;font-weight:800;font-size:.85rem;display:inline-flex;gap:6px;align-items:center;text-decoration:none;white-space:nowrap}
+.btn.t{background:var(--terra)}.btn.g{background:var(--ok)}.btn.l{background:#fff;color:var(--brown);border:1.5px solid var(--brown)}.btn.r{background:#fff;color:var(--red);border:1.5px solid var(--red)}.btn.s{padding:6px 12px;font-size:.78rem}
+header.top{background:var(--cream);border-bottom:1px solid var(--line);padding:12px 16px;position:sticky;top:0;z-index:20}
+header.top .in{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+header.top h1{font-family:"Cormorant Garamond",serif;font-size:1.5rem;color:var(--brown);margin-right:auto}
+.st{font-size:.78rem;font-weight:800;padding:5px 10px;border-radius:999px;background:#e5efe0;color:var(--sage-d)}
+.st.dirty{background:#fde8d6;color:var(--terra-d)}
+nav.tabs{max-width:1100px;margin:12px auto 0;padding:0 16px;display:flex;gap:6px;overflow-x:auto}
+nav.tabs button{background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-weight:800;color:var(--brown);white-space:nowrap}
+nav.tabs button.on{background:var(--brown);color:#fff}
+main{max-width:1100px;margin:0 auto;padding:14px 16px 60px}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px}
+.panel h2{font-family:"Cormorant Garamond",serif;color:var(--brown);font-size:1.4rem;margin-bottom:8px}
+.note{background:#fff6e6;border:1px solid #f0d9a8;border-radius:12px;padding:10px 12px;font-size:.85rem;margin-bottom:12px}
+.row{display:grid;grid-template-columns:56px 1fr auto;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}
+.th{width:56px;height:56px;border-radius:10px;background:var(--cream);position:relative;overflow:hidden;display:grid;place-items:center;font-size:1.4rem}
+.th img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.th.noimg::after{content:"🕯️"}
+.row b{display:block}.row small{color:#8b7466}
+.acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.tag{display:inline-block;font-size:.7rem;font-weight:800;border-radius:999px;padding:2px 8px;background:var(--cream);color:var(--brown);margin-right:4px}
+.tag.w{background:#fde8d6;color:var(--terra-d)}.tag.ok{background:#e5efe0;color:var(--sage-d)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.bar input[type=search]{flex:1;min-width:160px}
+.modal{position:fixed;inset:0;background:rgba(74,51,40,.5);z-index:50;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:16px}
+.modal.on{display:flex}
+.mbox{background:var(--paper);border-radius:18px;width:100%;max-width:560px;padding:18px;margin:auto}
+.mbox h2{font-family:"Cormorant Garamond",serif;color:var(--brown);font-size:1.5rem}
+.chk{display:flex;gap:8px;align-items:center;margin-top:8px;font-weight:700;font-size:.88rem}
+.chk input{width:auto}
+.prev{display:flex;gap:12px;align-items:center;margin-top:6px}
+.prev .th{width:90px;height:90px;flex:none}
+code{background:var(--cream);padding:1px 6px;border-radius:6px;font-size:.85em}
+#login{position:fixed;inset:0;background:var(--cream);z-index:100;display:grid;place-items:center;padding:16px}
+#login form{background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px;width:100%;max-width:340px;text-align:center}
+#login h1{font-family:"Cormorant Garamond",serif;color:var(--brown);letter-spacing:.14em}
+#login .e{color:var(--red);font-size:.85rem;min-height:1.2em;margin-top:8px}
+.crop{touch-action:none;width:300px;height:300px;max-width:100%;margin:12px auto;background:#222;border-radius:12px;overflow:hidden;cursor:grab;position:relative}
+.crop canvas{width:100%;height:100%;display:block}
+@media(max-width:640px){.g2{grid-template-columns:1fr}.row{grid-template-columns:48px 1fr}.row .acts{grid-column:1/-1;justify-content:flex-start}.th{width:48px;height:48px}}
+</style>
+</head>
+<body>
+
+<div id="login"><form id="lf"><h1>NURU</h1><p style="color:#8b7466;margin:4px 0 14px">Panel de control</p>
+<input id="lu" placeholder="Usuario" autocomplete="username"><div style="height:8px"></div><input id="lp" type="password" placeholder="Contraseña" autocomplete="current-password">
+<div class="e" id="le"></div><button class="btn" style="width:100%;justify-content:center;margin-top:8px">Ingresar</button></form></div>
+
+<header class="top"><div class="in">
+  <h1>🕯️ Nuru · Panel</h1>
+  <span class="st" id="st">Todo guardado</span>
+  <a class="btn l s" href="index.html" target="_blank">Ver tienda</a>
+  <label class="btn l s" style="margin:0;cursor:pointer">Importar datos.json<input type="file" id="imp" accept=".json,application/json" hidden></label>
+  <button class="btn t s" id="dlJson">⬇ Descargar datos.json</button>
+  <button class="btn g s" id="dlZip">⬇ Descargar paquete (zip)</button>
+</div>
+<nav class="tabs" id="tabs">
+  <button data-t="prods" class="on">Productos</button><button data-t="cats">Categorías</button><button data-t="imgs">Imágenes</button><button data-t="aro">Aromas</button><button data-t="cfg">Ajustes</button><button data-t="help">Cómo publicar</button>
+</nav></header>
+
+<main id="main"></main>
+
+<div class="modal" id="md"><div class="mbox" id="mb"></div></div>
+<div class="modal" id="mc"><div class="mbox" style="max-width:380px"><h2>Recortar foto</h2><p style="font-size:.85rem;color:#8b7466">Arrastrá para mover y usá el control para acercar.</p>
+<div class="crop" id="cw"><canvas id="cv" width="600" height="600"></canvas></div>
+<input type="range" id="zm" min="1" max="4" step="0.01" value="1">
+<div class="acts" style="margin-top:12px;justify-content:flex-end"><button class="btn l s" id="cx">Cancelar</button><button class="btn s" id="cok">Usar recorte</button></div></div></div>
+
+<script src="nuru-core.js"></script>
+<script>
+(function(){
+const N=window.NURU,esc=N.esc,money=N.money,$=id=>document.getElementById(id);
+const USER="admin",PASS="123456";
+let D=null,tab="prods",dirty=false,q="",editing=null,editingCat=null,pendingCatCrop=null;
+const OFFS=[["","Sin descuento"],["p5","5 %"],["p10","10 %"],["p15","15 %"],["p20","20 %"],["p25","25 %"],["p30","30 %"],["p40","40 %"],["p50","50 %"],["m500","$ 500 menos"],["m1000","$ 1.000 menos"],["m2000","$ 2.000 menos"],["m3000","$ 3.000 menos"],["m5000","$ 5.000 menos"]];
+const offSel=(id,v)=>'<select id="'+id+'">'+OFFS.map(o=>'<option value="'+o[0]+'"'+(o[0]===(v||"")?" selected":"")+'>'+o[1]+'</option>').join("")+'</select>';
+const fileFor=p=>N.key(p.n).replace(/-/g,"_");
+const uid=()=>"p"+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+
+function enter(){$("login").style.display="none";start();}
+try{if(sessionStorage.getItem("nuru_auth")==="1")enter();}catch(e){}
+$("lf").onsubmit=e=>{e.preventDefault();if($("lu").value===USER&&$("lp").value===PASS){try{sessionStorage.setItem("nuru_auth","1")}catch(x){}enter();}else $("le").textContent="Usuario o contraseña incorrectos";};
+
+function start(){N.load().then(r=>{D=r.data;dirty=!!r.usingDraft&&false;render();status();});}
+function status(){const s=$("st");s.textContent=dirty?"Cambios sin descargar":"Todo guardado";s.className="st"+(dirty?" dirty":"");}
+function commit(){D.v=Date.now();N.writeLS("nuru_draft",D);dirty=true;status();}
+function toast(m){const s=$("st");s.textContent=m;setTimeout(status,1800);}
+
+$("tabs").onclick=e=>{const b=e.target.closest("button");if(!b)return;tab=b.dataset.t;[...$("tabs").children].forEach(x=>x.classList.toggle("on",x===b));render();};
+function render(){if(!D)return;({prods:vProds,cats:vCats,imgs:vImgs,aro:vAro,cfg:vCfg,help:vHelp}[tab])();}
+
+/* ---------- productos ---------- */
+function thumb(p){const c=N.imgCandidates(p);return '<div class="th"><img alt="" src="'+esc(c[0])+'" data-c=\''+esc(JSON.stringify(c.slice(1)))+'\'></div>';}
+function vProds(){
+  const t=N.norm(q);
+  const l=D.prods.filter(p=>!t||N.norm(p.n).includes(t));
+  $("main").innerHTML='<div class="panel"><div class="bar"><input type="search" id="pq" placeholder="Buscar producto…" value="'+esc(q)+'"><button class="btn t" id="addp">+ Nuevo producto</button></div>'+
+  (l.map(p=>{const k=(D.cats.find(c=>c.id===p.c)||{}).n||"Sin categoría",o=N.bestOff(p,D);
+   return '<div class="row">'+thumb(p)+'<div><b>'+esc(p.n)+'</b><small>'+esc(k)+' · '+(p.p?money(p.p):"Consultar precio")+'</small><div style="margin-top:3px">'+(o?'<span class="tag w">'+esc(N.offLabel(o))+(p.off?"":" (categoría)")+'</span>':"")+(p.sold?'<span class="tag w">Agotado</span>':"")+(p.hide?'<span class="tag">Oculto</span>':"")+(p.aroma?'<span class="tag ok">Elige aroma</span>':"")+'</div></div><div class="acts"><button class="btn l s" data-ed="'+p.id+'">Editar</button><button class="btn r s" data-del="'+p.id+'">Borrar</button></div></div>';}).join("")||'<p style="padding:16px;color:#8b7466">No hay productos.</p>')+'</div>';
+  $("pq").oninput=e=>{q=e.target.value;vProds();const i=$("pq");i.focus();i.setSelectionRange(q.length,q.length);};
+  $("addp").onclick=()=>edit(null);
+  document.querySelectorAll("[data-ed]").forEach(b=>b.onclick=()=>edit(b.dataset.ed));
+  document.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{const p=D.prods.find(x=>x.id===b.dataset.del);if(confirm('¿Borrar "'+p.n+'"?')){D.prods=D.prods.filter(x=>x!==p);commit();vProds();}});
+}
+let pendingCrop=null;
+function edit(id){
+  const p=id?D.prods.find(x=>x.id===id):{id:uid(),n:"",c:(D.cats[0]||{}).id,p:0,off:"",tam:"",d:"",aroma:false};
+  editing={p,isNew:!id,tmp:Object.assign({},p)}; pendingCrop=null;
+  const t=editing.tmp;
+  $("mb").innerHTML='<h2>'+(id?"Editar producto":"Nuevo producto")+'</h2>'+
+  '<label>Nombre</label><input id="e_n" value="'+esc(t.n)+'" placeholder="Ej: Vela soja">'+
+  '<div class="g2"><div><label>Categoría</label><select id="e_c">'+D.cats.map(c=>'<option value="'+esc(c.id)+'"'+(c.id===t.c?" selected":"")+'>'+esc(c.n)+'</option>').join("")+'</select></div>'+
+  '<div><label>Precio (0 = "Consultar precio")</label><input id="e_p" type="number" min="0" step="50" value="'+(t.p||0)+'"></div></div>'+
+  '<label>Descuento de este producto</label>'+offSel("e_off",t.off)+
+  '<label>Medidas / detalle corto</label><input id="e_tam" value="'+esc(t.tam||"")+'" placeholder="Ej: 6,3 cm alto · 5,5 cm ancho">'+
+  '<label>Descripción</label><textarea id="e_d">'+esc(t.d||"")+'</textarea>'+
+  '<div class="chk"><input type="checkbox" id="e_aroma"'+(t.aroma?" checked":"")+'><label for="e_aroma" style="margin:0;font-size:.88rem;color:inherit">El cliente elige aroma</label></div>'+
+  '<div class="chk"><input type="checkbox" id="e_sold"'+(t.sold?" checked":"")+'><label for="e_sold" style="margin:0;font-size:.88rem;color:inherit">Agotado</label></div>'+
+  '<div class="chk"><input type="checkbox" id="e_hide"'+(t.hide?" checked":"")+'><label for="e_hide" style="margin:0;font-size:.88rem;color:inherit">Ocultar en la tienda</label></div>'+
+  '<div class="chk"><input type="checkbox" id="e_nocat"'+(t.noCat?" checked":"")+'><label for="e_nocat" style="margin:0;font-size:.88rem;color:inherit">Excluir del descuento de su categoría</label></div>'+
+  '<label>Imagen</label><div class="prev"><div class="th" id="e_th"></div><div style="font-size:.84rem;flex:1"><div id="e_info"></div>'+
+  '<div class="acts" style="justify-content:flex-start;margin-top:8px"><label class="btn l s" style="margin:0;cursor:pointer">Subir / recortar foto<input type="file" id="e_file" accept="image/*" hidden></label><button class="btn l s" id="e_auto" type="button">Usar nombre automático</button></div></div></div>'+
+  '<div class="acts" style="margin-top:18px"><button class="btn l" id="e_cancel">Cancelar</button><button class="btn" id="e_ok">Guardar producto</button></div>';
+  $("md").classList.add("on"); imgInfo();
+  $("e_n").oninput=()=>{editing.tmp.n=$("e_n").value;if(!editing.tmp.img)imgInfo();};
+  $("e_file").onchange=e=>{const f=e.target.files[0];if(f)openCrop(f,false);};
+  $("e_auto").onclick=()=>{editing.tmp.img="";imgInfo();};
+  $("e_cancel").onclick=()=>$("md").classList.remove("on");
+  $("e_ok").onclick=saveProd;
+}
+function imgInfo(){
+  const t=editing.tmp; t.n=$("e_n")?$("e_n").value:t.n;
+  const c=pendingCrop?[pendingCrop.dataUrl]:N.imgCandidates(t);
+  $("e_th").className="th";$("e_th").innerHTML='<img alt="" src="'+esc(c[0]||"")+'" data-c=\''+esc(JSON.stringify(c.slice(1)))+'\'>';
+  $("e_info").innerHTML=pendingCrop?'Foto nueva lista: se guardará como <code>'+esc(pendingCrop.name)+'</code> dentro de <code>imagenes productos</code>.':
+   t.img?'Vinculada a <code>'+esc(t.img)+'</code>':'Busca automáticamente un archivo llamado <code>'+esc(fileFor(t)||"nombre")+'</code> (.jpg .png .webp) en <code>imagenes productos</code>.';
+}
+function saveProd(){
+  const t=editing.tmp;
+  t.n=$("e_n").value.trim(); if(!t.n){alert("Poné un nombre");return;}
+  t.c=$("e_c").value;t.p=Math.max(0,+$("e_p").value||0);t.off=$("e_off").value;t.tam=$("e_tam").value.trim();t.d=$("e_d").value.trim();
+  t.aroma=$("e_aroma").checked;t.sold=$("e_sold").checked;t.hide=$("e_hide").checked;t.noCat=$("e_nocat").checked;
+  if(pendingCrop){const pe=N.pend();pe[pendingCrop.name]=pendingCrop.dataUrl;if(!N.writeLS("nuru_pend",pe)){alert("No hay lugar para guardar más fotos.");return;}t.img=pendingCrop.name;}
+  ["sold","hide","noCat","aroma"].forEach(k=>{if(!t[k])delete t[k];}); if(!t.img)delete t.img; if(!t.off)delete t.off;
+  if(editing.isNew)D.prods.push(t);else Object.assign(editing.p,t),Object.keys(editing.p).forEach(k=>{if(!(k in t))delete editing.p[k];});
+  commit();$("md").classList.remove("on");vProds();
+}
+
+let cI=null,cs=1,cx0=0,cy0=0,base=1,isCatCrop=false;
+function openCrop(file,isCat){
+  isCatCrop=isCat;
+  const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{cI={im,file};base=Math.max(600/im.width,600/im.height);cs=1;$("zm").value=1;cx0=(600-im.width*base)/2;cy0=(600-im.height*base)/2;$("mc").classList.add("on");drawC();};im.src=r.result;};r.readAsDataURL(file);
+}
+function clampC(){const w=cI.im.width*base*cs,h=cI.im.height*base*cs;cx0=Math.min(0,Math.max(600-w,cx0));cy0=Math.min(0,Math.max(600-h,cy0));}
+function drawC(){clampC();const c=$("cv").getContext("2d");c.fillStyle="#fff";c.fillRect(0,0,600,600);c.drawImage(cI.im,cx0,cy0,cI.im.width*base*cs,cI.im.height*base*cs);}
+$("zm").oninput=e=>{const n=+e.target.value;const cx=300-cx0,cy=300-cy0;cx0=300-cx*n/cs;cy0=300-cy*n/cs;cs=n;drawC();};
+let drag=null;
+$("cw").addEventListener("pointerdown",e=>{drag={x:e.clientX,y:e.clientY,a:cx0,b:cy0};$("cw").setPointerCapture(e.pointerId);});
+$("cw").addEventListener("pointermove",e=>{if(!drag)return;const k=600/$("cw").clientWidth;cx0=drag.a+(e.clientX-drag.x)*k;cy0=drag.b+(e.clientY-drag.y)*k;drawC();});
+$("cw").addEventListener("pointerup",()=>drag=null);
+$("cx").onclick=()=>$("mc").classList.remove("on");
+$("cok").onclick=()=>{
+  const o=document.createElement("canvas");o.width=o.height=800;const c=o.getContext("2d");c.fillStyle="#fff";c.fillRect(0,0,800,800);
+  const k=800/600;c.drawImage(cI.im,cx0*k,cy0*k,cI.im.width*base*cs*k,cI.im.height*base*cs*k);
+  const dataUrl=o.toDataURL("image/jpeg",.88);
+  $("mc").classList.remove("on");
+  if(isCatCrop&&editingCat){
+    const name="cat_"+editingCat.id+".jpg";
+    const pe=N.pend(); pe[name]=dataUrl; N.writeLS("nuru_pend",pe);
+    editingCat.img=name; delete editingCat.e; commit(); vCats();
+  } else {
+    const name=(editing.tmp.img&&!/^\s*$/.test(editing.tmp.img)?editing.tmp.img.replace(/\.[^.]+$/,""):fileFor({n:$("e_n").value||"producto"}))+".jpg";
+    pendingCrop={name,dataUrl}; imgInfo();
+  }
+};
+
+/* ---------- categorías (Con soporte para subir imagen o usar emoji) ---------- */
+function vCats(){
+  $("main").innerHTML='<div class="panel"><h2>Categorías</h2>'+
+  '<div class="note">Podés usar un emoji (ej. 🕯️) o <b>subir una foto/logo propio</b> para cada categoría.</div>'+
+  D.cats.map((c,i)=>{
+    const thumbSrc=c.img?(N.pend()[c.img]||N.url(c.img)):"";
+    return '<div class="row" style="grid-template-columns:56px 1fr 150px auto">'+
+    '<div class="th" style="cursor:pointer" title="Cambiar foto de categoría" data-catfile="'+i+'">'+(thumbSrc?'<img src="'+esc(thumbSrc)+'" alt="">':'<span style="font-size:1.2rem">'+esc(c.e||"📁")+'</span>')+'<input type="file" data-catinput="'+i+'" accept="image/*" hidden></div>'+
+    '<div><input data-cn="'+i+'" value="'+esc(c.n)+'"><small>'+(c.img?'Imagen: <code>'+esc(c.img)+'</code>':'Emoji: <input data-ce="'+i+'" value="'+esc(c.e||"")+'" style="width:60px;display:inline-block;padding:2px 6px">')+'</small></div>'+
+    offSel("co"+i,c.off)+
+    '<div class="acts"><button class="btn l s" data-cu="'+i+'">↑</button><button class="btn r s" data-cd="'+i+'">Borrar</button></div></div>';
+  }).join("")+
+  '<button class="btn t" id="addc" style="margin-top:12px">+ Nueva categoría</button></div>';
+
+  document.querySelectorAll("[data-cn]").forEach(i=>i.onchange=()=>{D.cats[i.dataset.cn].n=i.value.trim()||"Sin nombre";commit();});
+  document.querySelectorAll("[data-ce]").forEach(i=>i.onchange=()=>{D.cats[i.dataset.ce].e=i.value;delete D.cats[i.dataset.ce].img;commit();vCats();});
+  D.cats.forEach((c,i)=>$("co"+i).onchange=e=>{if(e.target.value)c.off=e.target.value;else delete c.off;commit();});
+  
+  document.querySelectorAll("[data-catfile]").forEach(el=>{
+    const idx=el.dataset.catfile;
+    el.onclick=()=>el.querySelector("input").click();
+    el.querySelector("input").onchange=e=>{const f=e.target.files[0];if(f){editingCat=D.cats[idx];openCrop(f,true);}};
+  });
+
+  document.querySelectorAll("[data-cu]").forEach(b=>b.onclick=()=>{const i=+b.dataset.cu;if(i>0){[D.cats[i-1],D.cats[i]]=[D.cats[i],D.cats[i-1]];commit();vCats();}});
+  document.querySelectorAll("[data-cd]").forEach(b=>b.onclick=()=>{const c=D.cats[b.dataset.cd];if(D.prods.some(p=>p.c===c.id)){alert("Esa categoría tiene productos.");return;}if(confirm("¿Borrar categoría?")){D.cats.splice(b.dataset.cd,1);commit();vCats();}});
+  $("addc").onclick=()=>{const n=prompt("Nombre de la categoría");if(n){D.cats.push({id:N.key(n)||uid(),n:n.trim(),e:"🕯️"});commit();vCats();}};
+}
+
+/* ---------- imágenes ---------- */
+function vImgs(){
+  const pe=N.pend(),pk=Object.keys(pe);
+  $("main").innerHTML='<div class="panel"><h2>Imágenes de la carpeta “imagenes productos”</h2>'+
+  '<label class="btn t" style="cursor:pointer">📂 Elegir carpeta de imágenes<input type="file" id="fdir" webkitdirectory multiple hidden></label> <label class="btn l" style="cursor:pointer;margin-left:6px">Elegir fotos sueltas<input type="file" id="ffiles" accept="image/*" multiple hidden></label><div id="scan" style="margin-top:14px"></div></div>'+
+  '<div class="panel"><h2>Fotos nuevas pendientes de subir ('+pk.length+')</h2>'+(pk.length?'<div class="acts" style="justify-content:flex-start">'+pk.map(k=>'<div style="text-align:center;font-size:.7rem"><div class="th" style="width:70px;height:70px"><img src="'+pe[k]+'" alt=""></div>'+esc(k)+'</div>').join("")+'</div><button class="btn r s" id="clrp" style="margin-top:12px">Ya las subí: limpiar pendientes</button>':'<p style="color:#8b7466">No hay fotos pendientes.</p>')+'</div>';
+  const go=e=>scan([...e.target.files].filter(f=>/\.(jpe?g|png|webp|gif|avif)$/i.test(f.name)));
+  $("fdir").onchange=go;$("ffiles").onchange=go;
+  if($("clrp"))$("clrp").onclick=()=>{if(confirm("¿Seguro?")){N.writeLS("nuru_pend",{});vImgs();}};
+}
+function pretty(f){return f.replace(/\.[^.]+$/,"").replace(/[_\-]+/g," ").replace(/\s+/g," ").trim().replace(/^./,c=>c.toUpperCase());}
+function scan(files){
+  const out=$("scan");if(!files.length){out.innerHTML="<p>No se encontraron imágenes.</p>";return;}
+  let linked=0;
+  const rows=files.map(f=>{
+    const k=N.key(f.name);
+    const p=D.prods.find(x=>(x.img&&x.img===f.name)||(!x.img&&N.key(x.n)===k)||(x.img&&N.key(x.img)===k));
+    if(p){ if(p.img!==f.name){p.img=f.name;linked++;} }
+    return {f,p,k};
+  });
+  if(linked)commit();
+  out.innerHTML=rows.map((r,i)=>'<div class="row"><div class="th"><img alt="" src="'+URL.createObjectURL(r.f)+'"></div><div><b>'+esc(r.f.name)+'</b>'+(r.p?'<span class="tag ok">Vinculada a “'+esc(r.p.n)+'”</span>':'<span class="tag w">Sin producto</span>')+'</div><div class="acts">'+(r.p?'':'<button class="btn t s" data-mk="'+i+'">Crear producto</button><select data-ln="'+i+'" style="width:auto"><option value="">Vincular a…</option>'+D.prods.map(p=>'<option value="'+p.id+'">'+esc(p.n)+'</option>').join("")+'</select>')+'</div></div>').join("");
+  out.querySelectorAll("[data-mk]").forEach(b=>b.onclick=()=>{const r=rows[b.dataset.mk];const n=prompt("Nombre del producto",pretty(r.f.name));if(!n)return;D.prods.push({id:uid(),n:n.trim(),c:(D.cats[0]||{}).id,p:0,img:r.f.name});commit();scan(files);});
+  out.querySelectorAll("[data-ln]").forEach(s=>s.onchange=()=>{if(!s.value)return;D.prods.find(p=>p.id===s.value).img=rows[s.dataset.ln].f.name;commit();scan(files);});
+  if(linked)toast(linked+" imagen(es) vinculada(s)");
+}
+
+/* ---------- aromas ---------- */
+function vAro(){
+  $("main").innerHTML='<div class="panel"><h2>Aromas de velas</h2>'+D.aromas.map((a,i)=>'<div class="row" style="grid-template-columns:1fr auto"><input data-ai="'+i+'" value="'+esc(a)+'"><button class="btn r s" data-ad="'+i+'">Borrar</button></div>').join("")+'<button class="btn t" id="adda" style="margin-top:12px">+ Nuevo aroma</button></div>';
+  document.querySelectorAll("[data-ai]").forEach(i=>i.onchange=()=>{D.aromas[i.dataset.ai]=i.value.trim()||D.aromas[i.dataset.ai];commit();});
+  document.querySelectorAll("[data-ad]").forEach(b=>b.onclick=()=>{D.aromas.splice(b.dataset.ad,1);commit();vAro();});
+  $("adda").onclick=()=>{const n=prompt("Nombre del aroma");if(n){D.aromas.push(n.trim());commit();vAro();}};
+}
+
+/* ---------- ajustes ---------- */
+function vCfg(){
+  const c=D.config;
+  if(!c.beneficios) c.beneficios=[{icon:"🕯️",text:"Velas de soja hechas a mano"},{icon:"📍",text:"Retiro en Posadas y Garupá"},{icon:"💳",text:"Efectivo y transferencia"},{icon:"🎁",text:"Souvenirs personalizados"}];
+  if(!c.cuidadosItems) c.cuidadosItems=["La primera vez que la enciendas..."];
+
+  const f=(k,l,ph)=>'<label>'+l+'</label><input data-k="'+k+'" value="'+esc(c[k]||"")+'" placeholder="'+(ph||"")+'">';
+  
+  let html='<div class="panel"><h2>WhatsApp</h2><div class="g2"><div>'+f("wa","Número de pedidos (con 54 9)","5493764828027")+f("btn","Texto del botón de compra")+'</div><div>'+f("customWa","Número para velas personalizadas","5493764828027")+f("customBtn","Texto del botón de vela personalizada")+'</div></div><label>Mensaje que se envía al pedir una vela personalizada</label><textarea data-k="customMsg">'+esc(c.customMsg)+'</textarea></div>'+
+  '<div class="panel"><h2>Portada y datos</h2>'+f("heroTitle","Título principal")+f("heroSub","Subtítulo")+f("promo","Cinta superior (dejalo vacío para que no aparezca)")+'<div class="g2"><div>'+f("insta","Instagram (sin @)")+'</div><div>'+f("phone","Teléfono visible")+'</div></div></div>'+
+  
+  '<div class="panel"><h2>Iconos y textos superiores (Beneficios)</h2>'+
+  c.beneficios.map((b,i)=>'<div class="row" style="grid-template-columns:80px 1fr auto"><input data-bicon="'+i+'" value="'+esc(b.icon||"")+'" title="Emoji o icono" style="text-align:center"><input data-btxt="'+i+'" value="'+esc(b.text||"")+'"><button class="btn r s" data-bdel="'+i+'">Borrar</button></div>').join("")+
+  '<button class="btn t" id="addb" style="margin-top:12px">+ Añadir beneficio</button></div>'+
+
+  '<div class="panel"><h2>Formas de pago</h2><div class="g2"><div><label>Icono de pagos</label><input data-k="pagosIcon" value="'+esc(c.pagosIcon||"💳")+'"></div><div><label>Formas separadas por coma</label><input data-k="pagos" value="'+esc((c.pagos||[]).join(", "))+'"></div></div></div>'+
+  
+  '<div class="panel"><h2>Apartado: Cuidados de tu vela</h2>'+
+  '<label>Título del apartado</label><input data-k="cuidadosTitulo" value="'+esc(c.cuidadosTitulo||"Cuidados de tu vela")+'">'+
+  '<label style="margin-top:12px">Puntos / Consejos (uno por renglón o ítem)</label>'+
+  c.cuidadosItems.map((item,i)=>'<div class="row" style="grid-template-columns:1fr auto"><textarea data-cuitem="'+i+'">'+esc(item)+'</textarea><button class="btn r s" data-cudel="'+i+'">Borrar</button></div>').join("")+
+  '<button class="btn t" id="addcu" style="margin-top:12px">+ Añadir consejo de cuidado</button></div>'+
+
+  '<div class="panel"><h2>Entrega / envío</h2>'+c.envios.map((z,i)=>'<div class="row" style="grid-template-columns:1fr 130px auto"><input data-zn="'+i+'" value="'+esc(z.n)+'"><input data-zp="'+i+'" type="number" min="0" value="'+(z.p||0)+'"><button class="btn r s" data-zd="'+i+'">Borrar</button></div>').join("")+'<button class="btn t" id="addz" style="margin-top:12px">+ Nueva opción</button></div>';
+
+  $("main").innerHTML=html;
+
+  document.querySelectorAll("[data-k]").forEach(i=>i.onchange=()=>{const k=i.dataset.k;c[k]=k==="pagos"?i.value.split(",").map(s=>s.trim()).filter(Boolean):i.value.trim();if(k==="wa"||k==="customWa")c[k]=c[k].replace(/\D/g,"");commit();});
+  document.querySelectorAll("[data-bicon]").forEach(i=>i.onchange=()=>{c.beneficios[i.dataset.bicon].icon=i.value;commit();});
+  document.querySelectorAll("[data-btxt]").forEach(i=>i.onchange=()=>{c.beneficios[i.dataset.btxt].text=i.value;commit();});
+  document.querySelectorAll("[data-bdel]").forEach(b=>b.onclick=()=>{c.beneficios.splice(b.dataset.bdel,1);commit();vCfg();});
+  $("addb").onclick=()=>{c.beneficios.push({icon:"✨",text:"Nuevo beneficio"});commit();vCfg();};
+
+  document.querySelectorAll("[data-cuitem]").forEach(i=>i.onchange=()=>{c.cuidadosItems[i.dataset.cuitem]=i.value;commit();});
+  document.querySelectorAll("[data-cudel]").forEach(b=>b.onclick=()=>{c.cuidadosItems.splice(b.dataset.cudel,1);commit();vCfg();});
+  $("addcu").onclick=()=>{c.cuidadosItems.push("Nuevo consejo de cuidado.");commit();vCfg();};
+
+  document.querySelectorAll("[data-zn]").forEach(i=>i.onchange=()=>{c.envios[i.dataset.zn].n=i.value;commit();});
+  document.querySelectorAll("[data-zp]").forEach(i=>i.onchange=()=>{c.envios[i.dataset.zp].p=+i.value||0;commit();});
+  document.querySelectorAll("[data-zd]").forEach(b=>b.onclick=()=>{if(c.envios.length>1){c.envios.splice(b.dataset.zd,1);commit();vCfg();}});
+  $("addz").onclick=()=>{c.envios.push({n:"Nueva opción",p:0});commit();vCfg();};
+}
+
+function vHelp(){
+  $("main").innerHTML='<div class="panel"><h2>Cómo actualizar tu tienda</h2><ol style="margin-left:20px;line-height:1.8"><li>Hacé tus cambios en el panel.</li><li>Descargá el <b>datos.json</b> o el paquete <b>zip</b>.</li><li>Reemplazá el archivo <code>datos.json</code> en tu carpeta del proyecto.</li><li>Subí los cambios a GitHub.</li></ol></div>';
+}
+
+const dl=(name,blob)=>{const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},500);}
+const jsonText=()=>JSON.stringify(D,null,2);
+$("dlJson").onclick=()=>{dl("datos.json",new Blob([jsonText()],{type:"application/json"}));dirty=false;status();};
+$("imp").onchange=e=>{const f=e.target.files[0];if(!f)return;f.text().then(t=>{try{D=N.normalize(JSON.parse(t));commit();dirty=false;status();render();toast("datos.json importado");}catch(x){alert("Archivo no válido");}});e.target.value="";};
+
+const T=(()=>{const t=[];for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?(c>>>1)^0xEDB88320:c>>>1;t[n]=c>>>0;}return t;})();
+const crc=b=>{let c=~0;for(let i=0;i<b.length;i++)c=T[(c^b[i])&255]^(c>>>8);return ~c>>>0;};
+function zip(files){
+  const enc=new TextEncoder(),parts=[],cd=[];let off=0;
+  const u16=n=>[n&255,(n>>>8)&255],u32=n=>[n&255,(n>>>8)&255,(n>>>16)&255,(n>>>24)&255];
+  files.forEach(f=>{const nm=enc.encode(f.name),c=crc(f.data),h=new Uint8Array([0x50,0x4b,3,4,20,0,0,8,0,0,0,0,0,0x21,...u32(c),...u32(f.data.length),...u32(f.data.length),...u16(nm.length),0,0]);
+    parts.push(h,nm,f.data);
+    cd.push(new Uint8Array([0x50,0x4b,1,2,20,0,20,0,0,8,0,0,0,0,0,0x21,...u32(c),...u32(f.data.length),...u32(f.data.length),...u16(nm.length),0,0,0,0,0,0,0,0,0,0,0,0,...u32(off)]),nm);
+    off+=h.length+nm.length+f.data.length;});
+  let cs=0;cd.forEach(x=>cs+=x.length);
+  const end=new Uint8Array([0x50,0x4b,5,6,0,0,0,0,...u16(files.length),...u16(files.length),...u32(cs),...u32(off),0,0]);
+  return new Blob([...parts,...cd,end],{type:"application/zip"});
+}
+$("dlZip").onclick=()=>{
+  const enc=new TextEncoder(),files=[{name:"datos.json",data:enc.encode(jsonText())}],pe=N.pend();
+  Object.keys(pe).forEach(k=>{const b=atob(pe[k].split(",")[1]),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);files.push({name:"imagenes productos/"+k,data:u});});
+  dl("nuru-actualizacion.zip",zip(files));dirty=false;status();
+};
+window.addEventListener("beforeunload",e=>{if(dirty){e.preventDefault();e.returnValue="";}});
+})();
+</script>
+</body>
+</html>

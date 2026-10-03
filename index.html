@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nuru · Velas y aromas · Posadas, Misiones</title>
+<meta name="description" content="Velas de soja, cuencos y bandejas de yeso hechos a mano. Deja que la vida te sorprenda.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Nunito+Sans:wght@400;600;700;800&family=Sue+Ellen+Francisco&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#f7ebdd;--cream2:#fbf5ec;--paper:#fffdf9;--terra:#d9946a;--terra-d:#b8704a;--brown:#8a5a44;--ink:#4a3328;--sage:#8e9c78;--sage-d:#6b7a57;--line:#ead9c6;--wa:#2a9d5c;--sh:0 6px 20px rgba(138,90,68,.12)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:hidden;max-width:100%}
+body{font-family:"Nunito Sans",system-ui,sans-serif;background:var(--cream2);color:var(--ink);line-height:1.5;-webkit-text-size-adjust:100%}
+img{max-width:100%;display:block}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+.script{font-family:"Sue Ellen Francisco","Segoe Script",cursive}
+.serif{font-family:"Cormorant Garamond",Georgia,serif}
+.wrap{width:100%;max-width:1160px;margin:0 auto;padding:0 16px}
+
+/* promo */
+.promo{background:var(--sage);color:#fff;text-align:center;font-size:.85rem;font-weight:700;padding:7px 12px}
+.promo:empty{display:none}
+
+.brandrow{background:var(--cream);border-bottom:1px solid var(--line);padding:14px 0 10px}
+.brandrow .wrap{display:flex;flex-direction:column;align-items:center;gap:2px}
+.logo{display:flex;flex-direction:column;align-items:center;text-decoration:none;color:var(--brown)}
+.logo svg{width:58px;height:auto}
+.logo b{font-family:"Cormorant Garamond",serif;font-size:2.1rem;letter-spacing:.18em;font-weight:600;line-height:1;margin-top:-2px;padding-left:.18em}
+.logo small{font-family:"Cormorant Garamond",serif;font-style:italic;letter-spacing:.14em;font-size:.82rem;color:var(--brown);opacity:.9;margin-top:3px}
+.logo img{height:96px;width:auto}
+.bar{position:sticky;top:0;z-index:30;background:var(--terra);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.bar .wrap{display:flex;gap:10px;align-items:center;padding-top:9px;padding-bottom:9px}
+.search{flex:1;min-width:0;display:flex;background:#fff;border-radius:999px;overflow:hidden}
+.search input{flex:1;min-width:0;border:0;outline:0;padding:10px 16px;font:inherit;font-size:.95rem;color:var(--ink);background:transparent}
+.search button{padding:0 16px;color:var(--terra-d);font-size:1.1rem}
+.cartbtn{flex:none;position:relative;background:var(--paper);color:var(--brown);border-radius:999px;padding:9px 14px;font-weight:800;font-size:.9rem;display:flex;gap:6px;align-items:center}
+.cartbtn i{font-style:normal;background:var(--brown);color:#fff;min-width:20px;height:20px;border-radius:10px;font-size:.75rem;display:grid;place-items:center;padding:0 5px}
+.nav{background:var(--paper);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-top:6px;padding-bottom:6px}
+.nav .wrap::-webkit-scrollbar{display:none}
+.nav a{flex:none;text-decoration:none;color:var(--brown);font-weight:700;font-size:.88rem;padding:7px 12px;border-radius:999px}
+.nav a:hover{background:var(--cream)}
+
+.hero{background:linear-gradient(135deg,var(--cream) 0%,#f3dcc6 100%);border-radius:22px;margin:16px 0;padding:28px 22px;display:grid;grid-template-columns:1.2fr .8fr;gap:16px;align-items:center;overflow:hidden;position:relative}
+.hero h1{font-family:"Cormorant Garamond",serif;font-size:clamp(2rem,5.5vw,3.3rem);line-height:1.05;color:var(--brown);font-weight:700}
+.hero p{margin:10px 0 18px;font-size:1.02rem;max-width:46ch}
+.hero .art{display:flex;justify-content:center}
+.hero .art svg{width:min(210px,100%);height:auto;filter:drop-shadow(0 8px 14px rgba(138,90,68,.2))}
+.cta{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:12px 22px;font-weight:800;font-size:.95rem;text-decoration:none;transition:.2s}
+.btn.p{background:var(--brown);color:#fff}.btn.p:hover{background:var(--ink)}
+.btn.o{background:transparent;border:2px solid var(--brown);color:var(--brown)}.btn.o:hover{background:var(--brown);color:#fff}
+.btn.custom{background:linear-gradient(120deg,var(--terra),#e6a77d 55%,var(--terra));background-size:200% 100%;color:#fff;box-shadow:0 8px 20px rgba(217,148,106,.45);animation:glow 3.2s ease-in-out infinite}
+.btn.custom:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(217,148,106,.6)}
+@keyframes glow{0%,100%{background-position:0 0}50%{background-position:100% 0}}
+
+.ben{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:8px}
+.ben div{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:12px 10px;text-align:center;font-size:.82rem;font-weight:700;color:var(--brown)}
+.ben span{display:block;font-size:1.4rem}
+
+h2.t{font-family:"Cormorant Garamond",serif;font-size:1.9rem;color:var(--brown);margin:26px 0 12px;text-align:center}
+h2.t small{display:block;font-family:"Sue Ellen Francisco",cursive;font-size:1.2rem;color:var(--sage-d);font-weight:400}
+
+/* categorías con imagen o emoji */
+.cats{display:flex;gap:12px;overflow-x:auto;padding:4px 2px 10px;scrollbar-width:none;justify-content:flex-start}
+.cats::-webkit-scrollbar{display:none}
+@media(min-width:760px){.cats{justify-content:center}}
+.cat{flex:none;width:84px;text-align:center}
+.cat .c{width:68px;height:68px;margin:0 auto 6px;border-radius:50%;background:var(--cream);border:2px solid var(--line);display:grid;place-items:center;font-size:1.8rem;overflow:hidden;position:relative;transition:.2s}
+.cat .c img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cat span{font-size:.78rem;font-weight:700;color:var(--brown);line-height:1.15;display:block}
+.cat.on .c,.cat:hover .c{background:var(--terra);border-color:var(--terra-d);transform:translateY(-2px)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-bottom:10px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--sh);min-width:0}
+.card .img{position:relative;aspect-ratio:1/1;background:var(--cream);overflow:hidden}
+.card .img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.card .img .ph{position:absolute;inset:0;display:grid;place-items:center;opacity:.9}
+.badge{position:absolute;top:10px;left:10px;z-index:2;background:var(--terra-d);color:#fff;font-weight:800;font-size:.8rem;padding:4px 10px;border-radius:999px}
+.sold{position:absolute;inset:0;z-index:3;background:rgba(255,253,249,.7);display:grid;place-items:center;font-weight:800;color:var(--brown);letter-spacing:.06em}
+.card .b{padding:12px 14px 14px;display:flex;flex-direction:column;gap:4px;flex:1}
+.card small.cn{color:var(--sage-d);font-weight:700;font-size:.74rem;text-transform:uppercase;letter-spacing:.06em}
+.card h3{font-family:"Cormorant Garamond",serif;font-size:1.3rem;line-height:1.1;color:var(--brown)}
+.card .tam{font-size:.8rem;color:#8b7466}
+.card .d{font-size:.84rem;color:#6e564a}
+.price{font-weight:800;font-size:1.15rem;color:var(--ink);margin-top:auto;padding-top:4px}
+.price s{font-weight:600;font-size:.85rem;color:#a99383;margin-right:6px}
+.price em{font-style:normal;font-size:.85rem;color:var(--terra-d)}
+.card select{width:100%;margin-top:6px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:#fff;font:inherit;font-size:.85rem;color:var(--ink)}
+.add{margin-top:8px;background:var(--terra);color:#fff;border-radius:999px;padding:10px;font-weight:800;font-size:.9rem}
+.add:hover{background:var(--terra-d)}.add[disabled]{background:#cbbbad;cursor:not-allowed}
+.empty{text-align:center;padding:36px 12px;color:var(--brown)}
+
+.band{background:var(--cream);border-radius:22px;padding:22px 18px;margin:26px 0}
+.aromas{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.aromas span{background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-weight:700;color:var(--brown);font-size:.9rem}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.box{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:18px}
+.box h3{font-family:"Cormorant Garamond",serif;font-size:1.4rem;color:var(--brown);margin-bottom:8px}
+.box li{margin-left:18px;margin-bottom:5px;font-size:.92rem}
+.box p{font-size:.92rem;margin-bottom:6px}
+.personal{text-align:center;background:linear-gradient(135deg,#f3dcc6,var(--cream));border-radius:22px;padding:30px 18px;margin:26px 0;border:1px solid var(--line)}
+.personal h2{font-family:"Cormorant Garamond",serif;font-size:2rem;color:var(--brown)}
+.personal p{max-width:52ch;margin:8px auto 18px}
+footer{background:var(--brown);color:#f7ebdd;text-align:center;padding:26px 16px 90px;margin-top:30px}
+footer b{font-family:"Cormorant Garamond",serif;font-size:1.6rem;letter-spacing:.16em}
+footer p{font-size:.9rem;margin-top:4px}footer a{color:#f7ebdd}
+
+.fab{position:fixed;right:14px;bottom:14px;z-index:40;background:var(--wa);color:#fff;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;box-shadow:0 6px 16px rgba(0,0,0,.25);text-decoration:none}
+.fab svg{width:28px;height:28px}
+
+.ov{position:fixed;inset:0;background:rgba(74,51,40,.45);z-index:60;opacity:0;visibility:hidden;transition:.25s}
+.ov.on{opacity:1;visibility:visible}
+.cart{position:fixed;z-index:70;background:var(--paper);display:flex;flex-direction:column;visibility:hidden;transition:transform .3s,visibility .3s;top:0;right:0;bottom:0;width:min(430px,100%);transform:translateX(105%)}
+.cart.on{transform:none;visibility:visible}
+.cart header{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line);background:var(--cream)}
+.cart header h3{font-family:"Cormorant Garamond",serif;font-size:1.5rem;color:var(--brown)}
+.cart header button{font-size:1.5rem;padding:0 6px;color:var(--brown)}
+.cbody{flex:1;overflow-y:auto;padding:12px 16px;overscroll-behavior:contain}
+.it{display:grid;grid-template-columns:54px 1fr auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.it .th{width:54px;height:54px;border-radius:10px;background:var(--cream);position:relative;overflow:hidden}
+.it .th img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.it b{font-size:.92rem;display:block;line-height:1.2}.it small{color:#8b7466;font-size:.78rem}
+.q{display:flex;align-items:center;gap:6px;margin-top:4px}
+.q button{width:26px;height:26px;border-radius:50%;background:var(--cream);font-weight:800;color:var(--brown)}
+.it .pr{font-weight:800;font-size:.92rem;text-align:right;white-space:nowrap}
+.cfoot{border-top:1px solid var(--line);padding:12px 16px calc(14px + env(safe-area-inset-bottom));background:var(--cream2);display:grid;gap:8px}
+.cfoot label{font-size:.78rem;font-weight:800;color:var(--brown);display:block;margin-bottom:2px}
+.cfoot input,.cfoot select,.cfoot textarea{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:10px;font:inherit;font-size:.9rem;background:#fff;color:var(--ink)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tot{display:flex;justify-content:space-between;font-size:.92rem}.tot.g{font-weight:800;font-size:1.15rem;color:var(--brown)}
+.send{background:var(--wa);color:#fff;border-radius:999px;padding:13px;font-weight:800;font-size:1rem;display:flex;justify-content:center;gap:8px;align-items:center}
+.send[disabled]{background:#b9c9bf;cursor:not-allowed}
+.hint{font-size:.78rem;color:#8b7466;text-align:center}
+
+@media(max-width:700px){
+  .hero{grid-template-columns:1fr;padding:22px 16px;text-align:center}
+  .hero p{margin-left:auto;margin-right:auto}.cta{justify-content:center}
+  .hero .art{order:-1}.hero .art svg{width:110px}
+  .ben{grid-template-columns:repeat(2,1fr)}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .card .b{padding:10px}.card h3{font-size:1.1rem}.card .d{display:none}
+  .logo svg{width:48px}.logo b{font-size:1.8rem}
+  .cartbtn span.tx{display:none}
+  .cart{top:auto;left:0;right:0;bottom:0;width:100%;height:92vh;height:92dvh;border-radius:22px 22px 0 0;transform:translateY(105%)}
+  .cart.on{transform:none}
+  .row2{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="promo" id="promo"></div>
+
+<div class="brandrow"><div class="wrap">
+  <a class="logo" href="#top" id="logo" aria-label="Nuru">
+    <img src="logo.png" alt="Nuru" id="logoimg" onerror="this.remove();document.getElementById('logosvg').style.display='flex'">
+    <span id="logosvg" style="display:none;flex-direction:column;align-items:center;text-align:center">
+      <svg viewBox="0 0 80 90" aria-hidden="true"><path d="M40 4C32 16 22 26 25 40c1 8 7 13 15 13s14-5 15-13C58 26 48 16 40 4z" fill="#d9946a"/><path d="M40 28c-4 6-9 10-7 17 1 4 4 6 7 6s6-2 7-6c2-7-3-11-7-17z" fill="#f7ebdd"/><path d="M40 33c-2 3-3 6-2 9 .5 2 1.3 3 2 3s1.5-1 2-3c1-3 0-6-2-9z" fill="#d9946a"/><path d="M39 84C30 84 18 76 14 62c14-2 25 4 27 16z" fill="#8e9c78"/><path d="M41 84c9 0 21-8 25-22-14-2-25 4-27 16z" fill="#8e9c78"/><path d="M40 86V56" stroke="#6b7a57" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>
+      <b>NURU</b><small>deja que la vida te sorprenda</small>
+    </span>
+  </a>
+</div></div>
+
+<div class="bar" id="top"><div class="wrap">
+  <form class="search" id="sf" role="search"><input id="q" type="search" placeholder="¿Qué aroma buscás hoy?" aria-label="Buscar"><button aria-label="Buscar">🔍</button></form>
+  <button class="cartbtn" id="opencart" aria-label="Abrir carrito">🛍️ <span class="tx">Carrito</span> <i id="cc">0</i></button>
+</div></div>
+
+<nav class="nav"><div class="wrap" id="nav"></div></nav>
+
+<main class="wrap">
+  <section class="hero" id="inicio">
+    <div>
+      <h1 id="ht"></h1>
+      <p id="hs"></p>
+      <div class="cta">
+        <a class="btn p" href="#catalogo">Ver productos</a>
+        <a class="btn custom" data-custom href="#" target="_blank" rel="noopener">🕯️ <span data-customtxt>Pedir una vela personalizada</span></a>
+      </div>
+    </div>
+    <div class="art" aria-hidden="true">
+      <svg viewBox="0 0 160 190"><path d="M80 6c-14 22-30 38-26 58 2 12 12 19 26 19s24-7 26-19C110 44 94 28 80 6z" fill="#d9946a"/><path d="M80 44c-7 11-15 17-12 29 2 7 7 10 12 10s10-3 12-10c3-12-5-18-12-29z" fill="#f7ebdd"/><rect x="42" y="92" width="76" height="82" rx="14" fill="#fff" fill-opacity=".55" stroke="#8a5a44" stroke-width="3"/><rect x="47" y="112" width="66" height="57" rx="9" fill="#f1cdb2"/><path d="M80 83v12" stroke="#8a5a44" stroke-width="3" stroke-linecap="round"/><path d="M118 150c14 0 26-8 30-22-14-2-26 4-30 22z" fill="#8e9c78"/><path d="M42 156c-14 0-24-6-28-18 12-2 24 3 28 18z" fill="#8e9c78"/></svg>
+    </div>
+  </section>
+
+  <div class="ben" id="benList"></div>
+
+  <h2 class="t" id="catalogo"><small>nuestros productos</small>Catálogo</h2>
+  <div class="cats" id="cats"></div>
+  <div class="grid" id="grid"></div>
+
+  <section class="band" id="aromas">
+    <h2 class="t" style="margin-top:0"><small>elegí el tuyo</small>Aromas de velas</h2>
+    <div class="aromas" id="aromaList"></div>
+  </section>
+
+  <section class="personal" id="personalizada">
+    <h2>¿Algo único, hecho para vos?</h2>
+    <p class="script" style="font-size:1.35rem;color:var(--sage-d)">Cumpleaños, 15, bodas, regalos empresariales…</p>
+    <p>Contanos tu idea, el aroma y los colores que imaginás y creamos una vela personalizada.</p>
+    <a class="btn custom" data-custom href="#" target="_blank" rel="noopener" style="font-size:1.05rem;padding:15px 28px">🕯️ <span data-customtxt>Pedir una vela personalizada</span></a>
+  </section>
+
+  <section class="cols" id="info">
+    <div class="box">
+      <h3>Puntos para retirar</h3>
+      <p>📍 Posadas y Garupá. Coordinamos el punto de encuentro por WhatsApp.</p>
+      <h3 style="margin-top:12px">Medios de pago</h3>
+      <p id="pagos"></p>
+    </div>
+    <div class="box">
+      <h3 id="cuidadosTitulo">Cuidados de tu vela</h3>
+      <ul id="cuidadosLista"></ul>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <b>NURU</b>
+  <p class="script" style="font-size:1.3rem">deja que la vida te sorprenda</p>
+  <p>Posadas, Misiones · <span id="fphone"></span> · <a id="finsta" href="#" target="_blank" rel="noopener"></a></p>
+</footer>
+
+<a class="fab" id="fab" href="#" target="_blank" rel="noopener" aria-label="WhatsApp" style="font-size:1.6rem">💬</a>
+
+<div class="ov" id="ov"></div>
+<aside class="cart" id="cart" aria-label="Carrito" aria-hidden="true">
+  <header><h3>Tu pedido</h3><button id="closecart" aria-label="Cerrar">✕</button></header>
+  <div class="cbody" id="cbody"></div>
+  <div class="cfoot" id="cfoot">
+    <div class="row2">
+      <div><label for="nom">Tu nombre</label><input id="nom" placeholder="Nombre y apellido"></div>
+      <div><label for="zona">Entrega</label><select id="zona"></select></div>
+    </div>
+    <div class="row2">
+      <div><label for="pago">Forma de pago</label><select id="pago"></select></div>
+      <div><label for="nota">Comentarios</label><input id="nota" placeholder="Aclaraciones (opcional)"></div>
+    </div>
+    <div class="tot"><span>Subtotal</span><span id="sub"></span></div>
+    <div class="tot"><span>Envío</span><span id="env"></span></div>
+    <div class="tot g"><span>Total</span><span id="tot"></span></div>
+    <button class="send" id="send">💬 <span id="sendtxt">Pedir por WhatsApp</span></button>
+    <div class="hint">Se abre WhatsApp con tu pedido armado. Confirmamos precio y entrega por ahí.</div>
+  </div>
+</aside>
+
+<script src="nuru-core.js"></script>
+<script>
+(function(){
+const N=window.NURU,esc=N.esc,money=N.money,$=id=>document.getElementById(id);
+let D=null,cat="all",term="",cart=N.readLS("nuru_cart",[]);
+const PH='<span class="ph"><svg viewBox="0 0 60 80"><path d="M30 3c-6 9-12 15-10 23 1 5 5 8 10 8s9-3 10-8C42 18 36 12 30 3z" fill="#d9946a"/><rect x="10" y="36" width="40" height="38" rx="8" fill="#fff" stroke="#c9a68c" stroke-width="2"/><rect x="13" y="48" width="34" height="23" rx="5" fill="#f1cdb2"/></svg></span>';
+const imgHTML=p=>{const c=N.imgCandidates(p);return PH+'<img alt="'+esc(p.n)+'" loading="lazy" src="'+esc(c[0])+'" data-c=\''+esc(JSON.stringify(c.slice(1)))+'\'>';};
+const save=()=>N.writeLS("nuru_cart",cart);
+
+function init(d){
+  D=d; const c=D.config;
+  const promoEl=$("promo");
+  if(c.promo && c.promo.trim() !== ""){
+    promoEl.textContent = c.promo;
+    promoEl.style.display = "block";
+  } else {
+    promoEl.textContent = "";
+    promoEl.style.display = "none";
+  }
+  $("ht").textContent=c.heroTitle; $("hs").textContent=c.heroSub;
+  document.querySelectorAll("[data-custom]").forEach(a=>a.href=N.waLink(c.customWa||c.wa,c.customMsg));
+  document.querySelectorAll("[data-customtxt]").forEach(s=>s.textContent=c.customBtn);
+  $("fab").href=N.waLink(c.wa,"¡Hola Nuru! Quisiera hacer una consulta 🕯️");
+  $("fphone").textContent=c.phone||""; const fi=$("finsta"); fi.textContent="@"+c.insta; fi.href="https://instagram.com/"+c.insta;
+  
+  if(c.beneficios && c.beneficios.length){
+    $("benList").innerHTML = c.beneficios.map(b=>'<div><span>'+esc(b.icon||"✨")+'</span>'+esc(b.text||"")+'</div>').join("");
+  }
+
+  const pagosIcon = c.pagosIcon || "💳";
+  $("pagos").textContent = pagosIcon + " " + (c.pagos||[]).join(" y ");
+
+  $("cuidadosTitulo").textContent = c.cuidadosTitulo || "Cuidados de tu vela";
+  if(c.cuidadosItems && c.cuidadosItems.length){
+    $("cuidadosLista").innerHTML = c.cuidadosItems.map(item=>'<li>'+esc(item)+'</li>').join("");
+  }
+
+  $("sendtxt").textContent=c.btn;
+  $("zona").innerHTML=c.envios.map((z,i)=>'<option value="'+i+'">'+esc(z.n)+(z.p?" · "+money(z.p):" · Gratis")+'</option>').join("");
+  $("pago").innerHTML=(c.pagos||[]).map(p=>'<option>'+esc(p)+'</option>').join("");
+  $("aromaList").innerHTML=D.aromas.map(a=>'<span>'+esc(a)+'</span>').join("");
+  $("nav").innerHTML='<a href="#inicio">Inicio</a>'+D.cats.map(k=>'<a href="#catalogo" data-cat="'+esc(k.id)+'">'+esc(k.n)+'</a>').join("")+'<a href="#aromas">Aromas</a><a href="#personalizada">Personalizadas</a>';
+  drawCats(); draw(); cartDraw();
+}
+function drawCats(){
+  const all=[{id:"all",n:"Todos",e:"✨"}].concat(D.cats);
+  const pe=N.pend();
+  $("cats").innerHTML=all.map(k=>{
+    let imgTag="";
+    if(k.img){
+      const src=pe[k.img]||N.url(k.img);
+      imgTag='<img src="'+esc(src)+'" alt="'+esc(k.n)+'">';
+    }
+    return '<button class="cat'+(k.id===cat?" on":"")+'" data-cat="'+esc(k.id)+'"><div class="c">'+(imgTag||esc(k.e||"🕯️"))+'</div><span>'+esc(k.n)+'</span></button>';
+  }).join("");
+}
+function priceLine(p){
+  if(!p.p) return '<em>Consultar precio</em>';
+  const o=N.bestOff(p,D),f=N.priceOf(p,D);
+  return o?'<s>'+money(p.p)+'</s>'+money(f):money(p.p);
+}
+function draw(){
+  const t=N.norm(term).trim();
+  const list=D.prods.filter(p=>!p.hide&&(cat==="all"||p.c===cat)&&(!t||N.norm(p.n+" "+(p.d||"")+" "+((D.cats.find(k=>k.id===p.c)||{}).n||"")).includes(t)));
+  $("grid").innerHTML=list.length?list.map(p=>{
+    const o=N.bestOff(p,D),cn=(D.cats.find(k=>k.id===p.c)||{}).n||"";
+    return '<article class="card"><div class="img">'+imgHTML(p)+(o&&p.p?'<span class="badge">'+esc(N.offLabel(o))+'</span>':"")+(p.sold?'<div class="sold">AGOTADO</div>':"")+'</div><div class="b"><small class="cn">'+esc(cn)+'</small><h3>'+esc(p.n)+'</h3>'+(p.tam?'<div class="tam">'+esc(p.tam)+'</div>':"")+(p.d?'<div class="d">'+esc(p.d)+'</div>':"")+'<div class="price">'+priceLine(p)+'</div>'+(p.aroma?'<select data-ar="'+esc(p.id)+'" aria-label="Aroma"><option value="">Elegí un aroma</option>'+D.aromas.map(a=>'<option>'+esc(a)+'</option>').join("")+'<option>Otro (lo aclaro en comentarios)</option></select>':"")+'<button class="add" data-id="'+esc(p.id)+'"'+(p.sold?" disabled":"")+'>'+(p.sold?"No disponible":"Agregar al pedido")+'</button></div></article>';
+  }).join(""):'<div class="empty" style="grid-column:1/-1"><p class="script" style="font-size:1.5rem">No encontramos esa vela…</p><p>Probá con otra palabra o <a href="#" data-custom-link>pedí una personalizada</a>.</p></div>';
+  const cl=document.querySelector("[data-custom-link]"); if(cl) cl.href=N.waLink(D.config.customWa||D.config.wa,D.config.customMsg);
+}
+function calc(){
+  let sub=0,n=0; const rows=cart.map(i=>{const p=D.prods.find(x=>x.id===i.id); if(!p) return null; const u=N.priceOf(p,D); sub+=u*i.q; n+=i.q; return {i,p,u};}).filter(Boolean);
+  const z=D.config.envios[+$("zona").value]||{p:0};
+  return {rows,sub,n,env:z.p||0,tot:sub+(z.p||0),hasUnknown:rows.some(r=>!r.p.p)};
+}
+function cartDraw(){
+  const c=calc(); $("cc").textContent=c.n;
+  $("cbody").innerHTML=c.rows.length?c.rows.map((r,ix)=>'<div class="it"><div class="th">'+imgHTML(r.p)+'</div><div><b>'+esc(r.p.n)+'</b>'+(r.i.a?'<small>Aroma: '+esc(r.i.a)+'</small><br>':"")+'<div class="q"><button data-m="'+ix+'" aria-label="Menos">−</button><span>'+r.i.q+'</span><button data-pl="'+ix+'" aria-label="Más">+</button></div></div><div class="pr">'+(r.p.p?money(r.u*r.i.q):"Consultar")+'</div></div>').join(""):'<div class="empty"><p class="script" style="font-size:1.5rem">Tu pedido está vacío</p><p>Sumá una vela y armamos tu pedido por WhatsApp.</p></div>';
+  $("sub").textContent=money(c.sub)+(c.hasUnknown?" + a consultar":""); $("env").textContent=c.env?money(c.env):"Gratis"; $("tot").textContent=money(c.tot)+(c.hasUnknown?" +":"");
+  $("send").disabled=!c.rows.length; save();
+}
+function setCart(on){$("cart").classList.toggle("on",on);$("ov").classList.toggle("on",on);$("cart").setAttribute("aria-hidden",!on);document.body.style.overflow=on?"hidden":"";}
+document.addEventListener("click",function(e){
+  const t=e.target.closest("button,a"); if(!t) return;
+  if(t.id==="opencart") return setCart(true);
+  if(t.id==="closecart") return setCart(false);
+  if(t.classList.contains("add")){
+    const p=D.prods.find(x=>x.id===t.dataset.id); const sel=t.parentNode.querySelector("select[data-ar]"); const a=sel?sel.value:"";
+    if(p.aroma&&sel&&!a){sel.focus();sel.style.borderColor="#b8704a";return;}
+    const ex=cart.find(i=>i.id===p.id&&(i.a||"")===a); if(ex) ex.q++; else cart.push({id:p.id,a:a,q:1});
+    cartDraw(); t.textContent="✓ Agregado"; setTimeout(()=>{t.textContent="Agregar al pedido"},900); return;
+  }
+  if(t.dataset.pl!=null&&t.dataset.pl!==""){cart[+t.dataset.pl].q++;return cartDraw();}
+  if(t.dataset.m!=null&&t.dataset.m!==""){const i=cart[+t.dataset.m];i.q--;if(i.q<=0)cart.splice(+t.dataset.m,1);return cartDraw();}
+  if(t.dataset.cat){cat=t.dataset.cat;drawCats();draw();}
+});
+$("ov").onclick=()=>setCart(false);
+document.addEventListener("keydown",e=>{if(e.key==="Escape")setCart(false)});
+$("zona").onchange=cartDraw;
+$("sf").onsubmit=e=>{e.preventDefault();term=$("q").value;draw();document.getElementById("catalogo").scrollIntoView({behavior:"smooth"});};
+$("q").oninput=e=>{term=e.target.value;draw();};
+$("send").onclick=function(){
+  const c=calc(); if(!c.rows.length) return; const cf=D.config,z=cf.envios[+$("zona").value]||{n:"",p:0};
+  let m="¡Hola Nuru! 🕯️ Quiero hacer este pedido:\n\n";
+  c.rows.forEach(r=>{m+="• "+r.i.q+" x "+r.p.n+(r.i.a?" (aroma: "+r.i.a+")":"")+" – "+(r.p.p?money(r.u*r.i.q):"consultar precio")+"\n";});
+  m+="\nSubtotal: "+money(c.sub)+(c.hasUnknown?" + productos a consultar":"")+"\nEntrega: "+z.n+(z.p?" ("+money(z.p)+")":" (gratis)")+"\nTotal: "+money(c.tot)+(c.hasUnknown?" + a consultar":"")+"\nPago: "+$("pago").value;
+  if($("nom").value.trim()) m+="\nNombre: "+$("nom").value.trim();
+  if($("nota").value.trim()) m+="\nComentarios: "+$("nota").value.trim();
+  window.open(N.waLink(cf.wa,m),"_blank");
+};
+N.load({ignoreDraft:/[?&]publico/.test(location.search)}).then(r=>init(r.data));
+})();
+</script>
+</body>
+</html>
